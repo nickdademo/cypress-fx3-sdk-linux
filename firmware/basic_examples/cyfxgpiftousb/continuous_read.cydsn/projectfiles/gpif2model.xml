@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GPIFIIModel version="3">
+  <InterfaceDefination>
+    <InterfaceSetting>
+      <I2SEnabled>False</I2SEnabled>
+      <I2CEnabled>False</I2CEnabled>
+      <SPIEnabled>False</SPIEnabled>
+      <I2SEnabled>True</I2SEnabled>
+      <ADMuxedEnabled>False</ADMuxedEnabled>
+      <InterfaceType>Slave</InterfaceType>
+      <CommunicationType>Synchronous</CommunicationType>
+      <ClockSource>Internal</ClockSource>
+      <ClockEdge>Positive</ClockEdge>
+      <Endianness>LittleEndian</Endianness>
+      <DataBusWidth>Bit32</DataBusWidth>
+      <AddressBuswidth>0</AddressBuswidth>
+    </InterfaceSetting>
+  </InterfaceDefination>
+  <Signals />
+  <StateMachine>
+    <AddressCounter />
+    <DataCounter />
+    <ControlCounter />
+    <AddressComparator />
+    <DataComparator />
+    <ControlComparator />
+    <DRQ />
+    <AddrData />
+    <State ElementId="STARTSTATE0" StateType="StartState">
+      <DisplayName>START</DisplayName>
+      <RepeatUntillNextTransition>True</RepeatUntillNextTransition>
+      <RepeatCount>0</RepeatCount>
+    </State>
+    <State ElementId="STATE0" StateType="NormalState">
+      <DisplayName>DMAWAIT</DisplayName>
+      <RepeatUntillNextTransition>True</RepeatUntillNextTransition>
+      <RepeatCount>0</RepeatCount>
+    </State>
+    <Transition ElementId="TRANSITION0" SourceState="STARTSTATE0" DestinationState="STATE0" Equation="LOGIC_ONE" />
+    <State ElementId="STATE1" StateType="NormalState">
+      <DisplayName>READDATA</DisplayName>
+      <RepeatUntillNextTransition>True</RepeatUntillNextTransition>
+      <RepeatCount>0</RepeatCount>
+      <Action ElementId="IN_DATA0" ActionType="IN_DATA">
+        <DataSourceSink>Socket</DataSourceSink>
+        <ThreadNumber>Thread0</ThreadNumber>
+        <SampleData>True</SampleData>
+        <WriteDataIntoDataSink>True</WriteDataIntoDataSink>
+      </Action>
+    </State>
+    <Transition ElementId="TRANSITION1" SourceState="STATE0" DestinationState="STATE1" Equation="DMA_RDY_TH0" />
+    <Transition ElementId="TRANSITION2" SourceState="STATE1" DestinationState="STATE0" Equation="!DMA_RDY_TH0" />
+  </StateMachine>
+</GPIFIIModel>

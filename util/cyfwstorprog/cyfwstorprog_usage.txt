@@ -1,0 +1,150 @@
+
+                                CYPRESS SEMICONDUCTOR
+
+                                 EZ-USB FX3/FX3S SDK
+                                     VERSION 1.3
+
+  cyfwstorprog.exe
+  ----------------
+
+  This is a Windows utility to program the FX3S firmware binary onto an
+  SD card or eMMC device connected to the S0 port of the FX3S device, as
+  preparation to get the FX3S device booting from the storage device.
+
+  This utility makes use of a firmware binary called CyStorBootWriter.img
+  which is located in the same folder. This firmware binary enumerates as
+  a USB mass storage class device, and provides a set of SCSI vendor specific
+  commands to program the storage device contents.
+
+  Usage:
+  ------
+  cyfwstorprog.exe -vid:<VID> -pid:<PID> -img:<FW_Image>
+      [-bootp:<Boot_Part_Location>] [-nuserp:<Num_UserArea_Partitions>]
+      [-psizes:<PartitionSizes>][-sleep:<Sleep_Time>]
+
+  or
+
+  cyfwstorprog.exe -vid:<VID> -pid:<PID> -delpart
+
+  or
+
+  cyfwstorprog.exe -vid:<VID> -pid:<PID> -disponly
+
+    where
+    <VID> is the hex Vendor ID of the device being programmed. Typically 04B4.
+
+    <PID> is the enumerated Product ID of the device being programmed.
+          Check this Value from the Device Manager or using the
+          Cypress USB Control Centre.
+
+    <FW_Image> is the binary image to be stored on the storage device.
+                The file should be in the same folder as the programming
+                application and complete file name should be provided.
+                e.g.: abcd.img
+
+    <Boot_Part_Location> is the location where FW is to be programmed.
+        Optional setting. Defaults to 'user'.
+
+        Valid Values:
+            boot1: Write firmware to eMMC/MMC BOOT Area Partition 1.
+                   The firmware is written starting sector 0 of the partition.
+
+            boot2: Write firmware to eMMC/MMC BOOT Area Partition 2.
+                   The firmware is written starting sector 0 of the partition.
+
+            user : Write firmware to a FX3S virtual boot partition in the
+                   User Data Area (Default Value). A user area partition of
+                   0x2800 Sectors is reserved as boot area at the top of the
+                   user data area (Physical Sectors 0-0x27FF).
+                   The Primary copy of the firmware is written to
+                   Logical Address 0, and the backup copy is written to
+                   Logical Address 0x400. If data at both addresses
+                   (LBA 0x0000 and LBA 0x0400) is corrupt, the device will
+                   normally fallback to USB for firmware download.
+
+        WARNING: The FX3S SDK API partition management APIs
+                 CyU3PSibPartitionStorage and  CyU3PSibRemovePartition will
+                 cause the boot partition header to be overwritten and will
+                 cause the device to fail booting from storage if using User
+                 Area Virtual Boot Partitions.
+
+    <Num_UserArea_Partitions> is the number of non-boot partitions requested.
+        This can be a maximum of 3 on cards without boot1/boot2 areas.
+        This will be a maximum of 2 on cards with boot1/boot2 areas.
+
+        The total number of partitions on the storage device is 4 (including
+        the boot1/boot2 partitions(if any), the user area boot partition (if
+        any) and the user area data partitions (if any).
+
+        Max(UserAreaPartitions) = 4 - (NumBoot1Partitions + NumBoot2Partitions
+            + NumUserAreaBootPartitons)
+
+        The number of UserArea partitons will be set to the lower of
+        Max(UserAreaPartitions) and Num_UserArea_Partitions requested.
+        If a value is not specified, a default value of 1 user area partition
+        will be assumed.
+
+    <PartitionSizes> is the size for any user area partitions created. This
+        is a list of values separated by the # character (10000#20000#0) which
+        are used as sizes (number of blocks) for the User area partitions
+        request using <Num_UserArea_Partitions>.
+        The last user area partition size is always set to whatever is
+        remaining on the card and not the value specified (and so is the only
+        value which should be set to 0). By default, the partition sizes is
+        set equally across all remaining user area partitions.
+
+    <Sleep_Time> is the time the application will wait after downloading the
+        programming firmware (CyStorBootWriter.img which should be in the same
+        path as the application) for the programming partition to be
+        enumerated as a storage partition.
+        The programming partition is a virtual partition and should not be
+        operated upon by the user except via the programming tool
+        (cyfwstorprog.exe).
+
+    -delpart is used if the only operation required is to delete all user
+        area partitions on the device. This operation will remove all FX3
+        partition headers and leave the device with a single data area
+        consisting of all user area sectors of the device.
+        This command does not remove the MMC Boot Partition 1
+        or Boot Partition 2.
+
+     -disponly is used if the only operation required is to view existing
+        partitions on the storage device. This command does not modify any
+        of the partitions on the device.
+
+  Usage Examples:
+  --------------------
+
+  1. Program the firmware binary in test1.img to Boot Partition 1 on the MMC
+     device. Divide the USER data area on the MMC device into two partitions
+     with the first partition size being 1000000 sectors.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -img:test1.img -bootp:boot1 -nuserp:2
+                      -psizes:1000000#0 -sleep:20
+
+  2. Program the firmware binary in test1.img to Boot Partition 2, and divide
+     the user data area into two equal partitions.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -img:test1.img -bootp:boot2 -nuserp:2
+
+  3. Program the firmware binary in test1.img to Boot partition 1. No changes
+     are to be made to the user data area.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -img:test1.img -bootp:boot1
+
+  4. Program the firmware binary in test1.img to a virtual partition created
+     in the user data area. Leave the rest of the user data area as a single
+     user partition.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -img:test1.img -sleep:20
+
+  5. Delete all partitions in the user data area, including any boot partitions.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -delpart
+
+  6. Display the current set of partitions (boot and user) present on the storage
+     device.
+
+     cyfwstorprog.exe -vid:04B4 -pid:00F3 -disponly
+
+[]
