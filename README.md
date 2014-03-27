@@ -1,10 +1,10 @@
 cypress-fx3-sdk-linux
 =====================
 
-###1. Install Eclipse & Eclipse C/C++ Development Tools
+##1. Install Eclipse & Eclipse C/C++ Development Tools
 *$ sudo apt-get install eclipse eclipse-cdt*
 
-###2. Install GNU ARM Eclipse Plug-in
+##2. Install GNU ARM Eclipse Plug-in
 The recommended way to install this plug-in is to use the Eclipse standard install/update mechanism:  
 1. Start Eclipse (from Terminal):  
 *$ eclipse &*  
@@ -19,7 +19,7 @@ The recommended way to install this plug-in is to use the Eclipse standard insta
 
 Note: As we saved the update site URL in Step 3, further updates are greatly simplified via: Help->Check For Updates
 
-###3. Setup Eclipse
+##3. Setup Eclipse
 1. Add the following lines to the end of ~/.bashrc using a text editor (so Eclipse knows where our project and toolchain will be located):  
 *export FX3_INSTALL_PATH=$HOME/workspace/cypress-fx3-sdk-linux*  
 *export PATH="$PATH:$FX3_INSTALL_PATH/util/arm-2011.03/bin"*  
@@ -34,35 +34,14 @@ Note: As we saved the update site URL in Step 3, further updates are greatly sim
 5. Compile the included elf2img tool:  
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/elf2img*  
 *$ gcc elf2img.c -o elf2img -Wall*  
-6. Import the required projects into Eclipse: _File->Import->General->Existing Project into Workspace_ - select the _cypress-fx3-sdk-linux/firmware_ directory. Note: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storage Port 0.  
+6. Import the required projects into Eclipse: _File->Import->General->Existing Project into Workspace_ - select the _cypress-fx3-sdk-linux/firmware_ directory.  
+Note: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storage Port 0.  
 7. Also import the following TWO (2) projects located in the "FX3_SDK_1_3_1_SRC" folder in the top-level directory:  
 *boot_fw*  
 *sdk*  
 8. Build the entire project workspace: Project->Build All
 
-### Eclipse Build Configurations
-Fx3BootAppGcc:   
-**Debug:** Optimization level = OPTIMIZE MOST (O3)  
-**Release:** Optimization level = OPTIMIZE MORE (O2)
-
-boot_fw:  
-**Default:** Optimization level = OPTIMIZE (O1)
-
-sdk:   
-**Debug:** Optimization level = NONE (O0)  
-**Release:** Optimization level = OPTIMIZE (O1)
-
-_All other projects:_   
-**Debug:** Optimization level = NONE (O0)  
-**Release:** Optimization level = OPTIMIZE MORE (O2)
-
-### Project Dependencies
-In order for required libraries (.a files) to exist when they are required during building of certain projects, the build order of Eclipse projects is set via the "Project References" project option:  
-**Fx3BootAppGcc:** References "boot_fw"  
-**boot_fw:** No references  
-**sdk:** No references  
-**_All other projects:_** References "sdk"
-
+##4. Flashing
 ###4A. Flashing the Device (using CyUSB Suite for Linux)
 1. Install dependencies:  
 *$ sudo apt-get install libqt4-dev qt4-qmake libusb-1.0-0-dev*  
@@ -101,3 +80,27 @@ Add the following to the end of the _sudoers_ file (replace YOUR_USERNAME with y
 7. Start Eclipse and program the FX3 using the External Tools menu! (Note: You may have to add the launches as favourites via "Organize Favourites" to make them visible).
 
 **IMPORTANT:** The **CyStorBootWriter** project must be compiled and flashed to the FX3S RAM before attempting to use the  _cyfwstorprog_ tool to write firmware to the SD/eMMC.
+
+##Notes
+### Eclipse Build Configurations
+Fx3BootAppGcc:   
+**Debug:** Optimization level = OPTIMIZE MOST (O3)  
+**Release:** Optimization level = OPTIMIZE MORE (O2)
+
+boot_fw:  
+**Default:** Optimization level = OPTIMIZE (O1)
+
+sdk:   
+**Debug:** Optimization level = NONE (O0)  
+**Release:** Optimization level = OPTIMIZE (O1)
+
+_All other projects:_   
+**Debug:** Optimization level = NONE (O0)  
+**Release:** Optimization level = OPTIMIZE MORE (O2)
+
+### Project Dependencies
+In order for required libraries (.a files) to exist when they are required during building of certain projects, the build order of Eclipse projects is set via the "Project References" project option:  
+**Fx3BootAppGcc:** References "boot_fw"  
+**boot_fw:** No references  
+**sdk:** No references  
+**_All other projects:_** References "sdk"
