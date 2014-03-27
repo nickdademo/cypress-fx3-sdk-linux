@@ -34,8 +34,9 @@ Note: As we saved the update site URL in Step 3, further updates are greatly sim
 5. Compile the included elf2img tool:  
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/elf2img*  
 *$ gcc elf2img.c -o elf2img -Wall*  
-6. Import the required projects into Eclipse: _File->Import->General->Existing Project into Workspace_ - select the _cypress-fx3-sdk-linux/firmware_ directory.  
-Note: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storage Port 0.  
+6. Import the projects you require into Eclipse: _File->Import->General->Existing Project into Workspace_ - select _cypress-fx3-sdk-linux/firmware_ as the root directory.  
+Note 1: Ensure you DO NOT import the *cyu3lpp* project.  
+Note 2: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storage Port 0.  
 7. Also import the following TWO (2) projects located in the "FX3_SDK_1_3_1_SRC" folder in the top-level directory:  
 *boot_fw*  
 *sdk*  
