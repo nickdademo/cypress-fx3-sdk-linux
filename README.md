@@ -81,6 +81,8 @@ Add the following to the end of the _sudoers_ file (replace YOUR_USERNAME with y
 
 **IMPORTANT:** The **CyStorBootWriter** project must be compiled and flashed to the FX3S RAM before attempting to use the  _cyfwstorprog_ tool to write firmware to the SD/eMMC.
 
+The source for the  _cyfwstorprog_ tool can be found at https://github.com/nickdademo/cyfwstorprog_linux
+
 ##Notes
 ### Eclipse Build Configurations
 Fx3BootAppGcc:   
