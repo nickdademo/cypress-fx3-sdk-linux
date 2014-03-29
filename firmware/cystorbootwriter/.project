@@ -3,6 +3,7 @@
 	<name>CyStorBootWriter</name>
 	<comment></comment>
 	<projects>
+		<project>sdk</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
