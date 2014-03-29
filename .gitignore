@@ -27,6 +27,9 @@ firmware/u3p_firmware/lib/*/cyu3sport.a
 firmware/u3p_firmware/lib/*/cyu3threadx.a
 util/cyusb_linux_1.0.4/lib/*.so*
 util/cyusb_linux_1.0.4/bin/
+util/cyusb_linux_1.0.4/gui_src/Makefile
+util/cyusb_linux_1.0.4/gui_src/ui_controlcenter.h
+util/cyusb_linux_1.0.4/gui_src/moc_controlcenter.cpp
 firmware/cystorbootwriter/*.elf
 firmware/cystorbootwriter/*.map
 firmware/cystorbootwriter/*.img
