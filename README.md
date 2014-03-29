@@ -43,42 +43,39 @@ Note 2: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storag
 8. Build the entire project workspace: Project->Build All
 
 ##4. Flashing
-###4A. Flashing the Device (using CyUSB Suite for Linux)
+###A. Flashing the Device (using CyUSB Suite for Linux)
 1. Install dependencies:  
 *$ sudo apt-get install libqt4-dev qt4-qmake libusb-1.0-0-dev*  
-2. Download _EZ-USB FX3 SDK v1.3.1 for Linux_ at the following link (Cypress login required):  
-http://www.cypress.com/?docID=42387&dlm=1  
-3. Open the downloaded SDK archive and extract 'cyusb_linux_1.0.4.tar.gz' to your Home folder.
-4. Compile application:  
-*$ cd ~/cyusb_linux_1.0.4/*  
+2. Compile and install CyUSB Suite and Cypress USB library:  
+*$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4/*  
 *$ sudo ./install.sh*  
-5. Create symbolic link to application binary:  
-*$ sudo ln -s bin/cyusb_linux /usr/bin/cyusb_linux*
-6. Restart system
-7. Run _CyUSB Suite for Linux_ with the following command in Terminal:  
+3. Restart system
+4. Run _CyUSB Suite for Linux_ with the following command in Terminal:  
 *$ cyusb_linux*
 
-###4B. Flashing the Device (using Cypress command line tools through Eclipse)
+###B. Flashing the Device (using Cypress command line tools through Eclipse)
 1. Install dependencies:  
-*$ sudo apt-get install g++*  
-2. Compile *cyusb_linux_1.0.4* tool:  
-*$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4_cmd/*  
-*$ make*  
+*$ sudo apt-get install libusb-1.0-0-dev g++*  
+2. Compile and install Cypress USB library (if not already installed in Step 4A):  
+*$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4/*  
+*$ sudo ./install_lib.sh*  
+3. Compile *cyusb_linux_1.0.4* command-line tools:  
 *$ cd src/*  
-*$ make*
-3. Compile *cyfwstorprog* tool (for flashing to SD/eMMC):  
+*$ make*  
+4. Compile *cyfwstorprog* tool (for flashing to SD/eMMC):  
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyfwstorprog_linux/*  
 *$ make*  
-4. Make *cyfwstorprog* tool run WITHOUT a _sudo_ password prompt in Eclipse:  
+5. Make *cyfwstorprog* tool run WITHOUT a _sudo_ password prompt in Eclipse:  
 *$ sudo gedit /etc/sudoers*  
 Add the following to the end of the _sudoers_ file (replace YOUR_USERNAME with your own and ensure the path to the tool is correct):  
 *YOUR_USERNAME ALL = (ALL) ALL*  
 *YOUR_USERNAME ALL = (root) NOPASSWD: /home/YOUR_USERNAME/workspace/cypress-fx3-sdk-linux/util/cyfwstorprog_linux/cyfwstorprog*  
-5. Create a .launches directory in the Eclipse workspace:  
+6. Create a .launches directory in the Eclipse workspace:  
 *$ mkdir -p ~/workspace/.metadata/.plugins/org.eclipse.debug.core/.launches*  
-6. Copy Eclipse launch files to appropriate folder:  
-*$ cp ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4_cmd/eclipse_launches/*_\*.launch ~/workspace/.metadata/.plugins/org.eclipse.debug.core/.launches/_    
-7. Start Eclipse and program the FX3 using the External Tools menu! (Note: You may have to add the launches as favourites via "Organize Favourites" to make them visible).
+7. Copy Eclipse launch files to appropriate folder:  
+*$ cp ~/workspace/cypress-fx3-sdk-linux/util/eclipse_launches/*_\*.launch ~/workspace/.metadata/.plugins/org.eclipse.debug.core/.launches/_  
+8. Restart system
+9. Start Eclipse and program the FX3 using the External Tools menu! (Note: You may have to add the launches as favourites via "Organize Favourites" to make them visible).
 
 **IMPORTANT:** The **CyStorBootWriter** project must be compiled and flashed to the FX3S RAM before attempting to use the  _cyfwstorprog_ tool to write firmware to the SD/eMMC.
 
