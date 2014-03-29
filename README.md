@@ -12,7 +12,7 @@ The recommended way to install this plug-in is to use the Eclipse standard insta
 3. In the Install window, click the "Add..." button (for future updates, you will be able to select the URL from the dropdown)  
 4. Fill in Location: *http://gnuarmeclipse.sourceforge.net/updates*  
 5. Click the "OK" button  
-6. Normally the main window should list a group named "CDT GNU Cross Development Tools" - expand it.  
+6. Normally the main window should list a group named "GNU ARM C/C++ Cross Development Tools" - expand it.  
 7. Select "GNU ARM C/C++ Development Support"  
 8. Click the Next button  
 9. Accept the unsigned plug-in and install  
@@ -60,7 +60,7 @@ http://www.cypress.com/?docID=42387&dlm=1
 
 ###4B. Flashing the Device (using Cypress command line tools through Eclipse)
 1. Install dependencies:  
-*$ sudo apt-get install libusb-1.0-0-dev*  
+*$ sudo apt-get install g++*  
 2. Compile *cyusb_linux_1.0.4* tool:  
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4_cmd/*  
 *$ make*  
