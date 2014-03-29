@@ -25,8 +25,8 @@ firmware/u3p_firmware/lib/*/cyfxapi.a
 firmware/u3p_firmware/lib/*/cyu3lpp.a
 firmware/u3p_firmware/lib/*/cyu3sport.a
 firmware/u3p_firmware/lib/*/cyu3threadx.a
-util/cyusb_linux_1.0.4_cmd/lib/*.so*
-util/cyusb_linux_1.0.4_cmd/bin/
+util/cyusb_linux_1.0.4/lib/*.so*
+util/cyusb_linux_1.0.4/bin/
 firmware/cystorbootwriter/*.elf
 firmware/cystorbootwriter/*.map
 firmware/cystorbootwriter/*.img

@@ -1,0 +1,1 @@
+Copy the launch files to: ${ECLIPSE_WORKSPACE}/.metadata/.plugins/org.eclipse.debug.core/.launches/
