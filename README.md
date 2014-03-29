@@ -60,7 +60,7 @@ Note 2: Import *CyStorBootWriter* if you will be writing firmware to FX3S Storag
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4/*  
 *$ sudo ./install_lib.sh*  
 3. Compile *cyusb_linux_1.0.4* command-line tools:  
-*$ cd src/*  
+*$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyusb_linux_1.0.4/src/*  
 *$ make*  
 4. Compile *cyfwstorprog* tool (for flashing to SD/eMMC):  
 *$ cd ~/workspace/cypress-fx3-sdk-linux/util/cyfwstorprog_linux/*  
